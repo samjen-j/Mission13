@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Bowler List";
+}
+
+@model List<Bowler>
+
+<div class="text-center">
+    @if (ViewBag.TeamName != null)
+    {
+        <h1 class="display-4">@ViewBag.TeamName</h1>
+    }
+    else
+    {
+        <h1 class="display-4">All Bowlers</h1>
+    }
+    
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index" asp-route-team="" class="btn btn-primary">Home</a>
+    @foreach (Team t in ViewBag.Teams)
+    {
+        <a asp-controller="Home" asp-action="Index" asp-route-team="@t.TeamName" class="btn @(ViewBag.TeamName == t.TeamName ? "btn-dark" : "btn-outline-secondary")">@t.TeamName</a>
+    }
+    
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <thead class="font-weight-bolder">
+        <tr>
+            <td>First Name</td>
+            <td>Middle Initial</td>
+            <td>Last Name</td>
+            <td>Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip</td>
+            <td>Phone Number</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@b.BowlerFirstName</td>
+                    <td>@b.BowlerMiddleInit</td>
+                    <td>@b.BowlerLastName</td>
+                    <td>@b.BowlerAddress</td>
+                    <td>@b.BowlerCity</td>
+                    <td>@b.BowlerState</td>
+                    <td>@b.BowlerZip</td>
+                    <td>@b.BowlerPhoneNumber</td>
+                    <!-- Actions-->
+                    <td><a asp-controller="Home" asp-action="Edit" asp-route-bowlerid="@b.BowlerID">Edit</a></td>
+                    <td><a asp-controller="Home" asp-action="DeleteBowler" asp-route-bowlerid="@b.BowlerID">Delete</a></td>
+                </tr>
+            }
+
+    </tbody>
+
+
+</table>
